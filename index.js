@@ -23,6 +23,7 @@ async function run() {
         await client.connect();
         const database = client.db('puppiesShop')
         const productsCollections = database.collection('products');
+        const ordersCollections = database.collection('orders');
 
 
         // post product 
@@ -33,6 +34,13 @@ async function run() {
             res.json(result)
         })
 
+        app.post('/orders',async(req,res)=>{
+            const order=req.body;
+            const result=await ordersCollections.insertOne(order);
+            // console.log(result);
+            res.send(result)
+        })
+
 
         // get products 
         app.get('/products', async (req, res) => {
@@ -40,6 +48,11 @@ async function run() {
             const products = await cursor.toArray();
             res.send(products);
         })
+
+          app.get('/orders/:id',async(req,res)=>{
+              
+          })  
+
 
         // get singleService 
         app.get('/singleProduct/:id', async (req, res) => {
