@@ -52,9 +52,9 @@ async function run() {
         app.get('/myOrders/:email', async (req, res) => {
             const email = req.params.email;
             const newEmail = ({ email: email });
-            const cursor=ordersCollections.find(newEmail)
+            const cursor = ordersCollections.find(newEmail)
             console.log(newEmail);
-            const result= await cursor.toArray();
+            const result = await cursor.toArray();
             res.send(result);
         })
 
@@ -67,6 +67,19 @@ async function run() {
             console.log(product)
             res.json(product);
         })
+
+
+
+        // delete data 
+        app.delete('/myOrders/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await orderCollection.deleteOne(query);
+            // console.log(query)
+            res.send(result);
+        })
+
+
 
 
     }
