@@ -45,7 +45,7 @@ async function run() {
         })
         app.post('/reviews', async (req, res) => {
             const review = req.body;
-            const result = await reviewsCollections.insertOne('review');
+            const result = await reviewsCollections.insertOne(review);
             console.log(result);
             res.json(result);
         })
