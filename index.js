@@ -34,9 +34,9 @@ async function run() {
             res.json(result)
         })
 
-        app.post('/orders',async(req,res)=>{
-            const order=req.body;
-            const result=await ordersCollections.insertOne(order);
+        app.post('/orders', async (req, res) => {
+            const order = req.body;
+            const result = await ordersCollections.insertOne(order);
             // console.log(result);
             res.send(result)
         })
@@ -49,9 +49,14 @@ async function run() {
             res.send(products);
         })
 
-          app.get('/orders/:id',async(req,res)=>{
-              
-          })  
+        app.get('/myOrders/:email', async (req, res) => {
+            const email = req.params.email;
+            const newEmail = ({ email: email });
+            const cursor=ordersCollections.find(newEmail)
+            console.log(newEmail);
+            const result= await cursor.toArray();
+            res.send(result);
+        })
 
 
         // get singleService 
