@@ -28,7 +28,12 @@ async function run() {
         const usersCollections = database.collection('users');
 
 
+
+
+
         // ========================= post product ========================
+
+
 
 
         app.post('/products', async (req, res) => {
@@ -60,7 +65,13 @@ async function run() {
         })
 
 
+
+
         // ====================== get products =============================
+
+
+
+
 
 
         app.get('/products', async (req, res) => {
@@ -92,7 +103,23 @@ async function run() {
         })
 
 
+        app.get('/users/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const user = await usersCollections.findOne(query);
+            let isAdmin = false
+            if (user?.role == 'admin') {
+                isAdmin = true;
+            }
+            res.send({ admin: isAdmin });
+        })
+
+
+
         // ========================  update method =========================
+
+
+
 
         app.put('/users/makeAdmin', async (req, res) => {
             const user = req.body;
@@ -105,7 +132,12 @@ async function run() {
 
 
 
+
+
         // ========================  get singleItems =========================
+
+
+
 
 
         app.get('/singleProduct/:id', async (req, res) => {
@@ -118,7 +150,12 @@ async function run() {
 
 
 
+
+
         // ====================  delete data =======================
+
+
+
 
 
         app.delete('/myOrders/:id', async (req, res) => {
