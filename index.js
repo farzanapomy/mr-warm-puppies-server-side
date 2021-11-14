@@ -111,7 +111,7 @@ async function run() {
             if (user?.role == 'admin') {
                 isAdmin = true;
             }
-            res.send({ admin: isAdmin });
+            res.json({ admin: isAdmin });
         })
 
 
