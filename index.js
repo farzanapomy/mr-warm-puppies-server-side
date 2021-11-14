@@ -4,7 +4,6 @@ const { MongoClient } = require('mongodb');
 const cors = require('cors');
 require('dotenv').config();
 const ObjectId = require('mongodb').ObjectId;
-const { json } = require('express');
 
 const port = process.env.PORT || 5000;
 
@@ -44,7 +43,7 @@ async function run() {
             // console.log(result);
             res.json(result)
         })
-        app.post('/addReviews', async (req, res) => {
+        app.post('/reviews', async (req, res) => {
             const review = req.body;
             const result = await reviewsCollections.insertOne('review');
             console.log(result);
