@@ -51,9 +51,10 @@ async function run() {
             res.json(result);
         })
 
-        app.post('/users',async(req,res)=>{
-            const user=req.body;
-            const result=await usersCollections.insertOne(user);
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            console.log(user);
+            const result = await usersCollections.insertOne(user);
             console.log(result);
             res.json(result)
         })
@@ -90,7 +91,13 @@ async function run() {
             res.send(reviews);
         })
 
+        
+        // ========================  update method =========================
 
+        app.put('/makeAdmin',async(req,res)=>{
+            const admin=req.body;
+            console.log(admin);
+        })
 
 
 
