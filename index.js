@@ -4,6 +4,7 @@ const { MongoClient } = require('mongodb');
 const cors = require('cors');
 require('dotenv').config();
 const ObjectId = require('mongodb').ObjectId;
+const { json } = require('express');
 
 const port = process.env.PORT || 5000;
 
@@ -24,9 +25,12 @@ async function run() {
         const database = client.db('puppiesShop')
         const productsCollections = database.collection('products');
         const ordersCollections = database.collection('orders');
+        const reviewsCollections = database.collection('reviews');
 
 
-        // post product 
+        // ========================= post product ========================
+
+
         app.post('/products', async (req, res) => {
             const product = req.body;
             const result = await productsCollections.insertOne(product)
@@ -38,11 +42,21 @@ async function run() {
             const order = req.body;
             const result = await ordersCollections.insertOne(order);
             // console.log(result);
-            res.send(result)
+            res.json(result)
+        })
+        app.post('/addReviews', async (req, res) => {
+            const review = req.body;
+            const result = await reviewsCollections.insertOne('review');
+            console.log(result);
+            res.json(result);
         })
 
 
-        // get products 
+
+
+        // ====================== get products =============================
+
+
         app.get('/products', async (req, res) => {
             const cursor = productsCollections.find({});
             const products = await cursor.toArray();
@@ -69,7 +83,9 @@ async function run() {
 
 
 
-        // get singleService 
+        // ========================  get singleItems =========================
+
+
         app.get('/singleProduct/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
@@ -80,7 +96,9 @@ async function run() {
 
 
 
-        // delete data 
+        // ====================  delete data =======================
+
+
         app.delete('/myOrders/:id', async (req, res) => {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
