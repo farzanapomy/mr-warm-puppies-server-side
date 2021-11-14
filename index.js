@@ -91,12 +91,17 @@ async function run() {
             res.send(reviews);
         })
 
-        
+
         // ========================  update method =========================
 
-        app.put('/makeAdmin',async(req,res)=>{
-            const admin=req.body;
-            console.log(admin);
+        app.put('/makeAdmin', async (req, res) => {
+            const email = req.body.email;
+            const filter = { email: email }
+            const updateDoc = {
+                $set: { role: "admin" },
+            };
+            const result = await usersCollections.updateOne(filter, updateDoc)
+            console.log(result);
         })
 
 
