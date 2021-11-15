@@ -114,9 +114,9 @@ async function run() {
             res.json({ admin: isAdmin });
         })
 
-        app.get('/managerOrder',async(req,res)=>{
-            const cursor=ordersCollections.find({});
-            const orders=await cursor.toArray();
+        app.get('/managerOrder', async (req, res) => {
+            const cursor = ordersCollections.find({});
+            const orders = await cursor.toArray();
             res.json(orders)
         })
 
@@ -135,6 +135,15 @@ async function run() {
         })
 
 
+        app.put('/status/:id', async (req, res) => {
+            console.log('result');
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) }
+
+            const updateDoc = { $set: { status: req.body.status } };
+            const result = await ordersCollections.updateOne(query, updateDoc)
+            res.send(result);
+        })
 
 
 
