@@ -120,6 +120,7 @@ async function run() {
             res.json(orders)
         })
 
+
         // ========================  update method =========================
 
 
@@ -165,6 +166,7 @@ async function run() {
 
 
 
+
         // ====================  delete data =======================
 
 
@@ -175,6 +177,14 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await ordersCollections.deleteOne(query);
+            console.log(result)
+            res.send(result)
+        })
+
+        app.delete('/products/:id', async (req, res) => {
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await productsCollections.deleteOne(query);
             console.log(result)
             res.send(result)
         })
