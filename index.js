@@ -114,7 +114,11 @@ async function run() {
             res.json({ admin: isAdmin });
         })
 
-
+        app.get('/managerOrder',async(req,res)=>{
+            const cursor=ordersCollections.find({});
+            const orders=await cursor.toArray();
+            res.json(order)
+        })
 
         // ========================  update method =========================
 
