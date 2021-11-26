@@ -99,6 +99,7 @@ async function run() {
         app.get('/reviews', async (req, res) => {
             const cursor = reviewsCollections.find({});
             const reviews = await cursor.toArray();
+            console.log(review);
             res.send(reviews);
         })
 
@@ -131,7 +132,7 @@ async function run() {
             const filter = { email: user.email };
             const updateDoc = { $set: { role: 'admin' } };
             const result = await usersCollections.updateOne(filter, updateDoc);
-            console.log(result);
+            // console.log(result);
             res.send(result);
         })
 
@@ -158,7 +159,7 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) }
             const product = await productsCollections.findOne(query);
-            console.log(product)
+            // console.log(product)
             res.json(product);
         })
 
@@ -177,7 +178,7 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await ordersCollections.deleteOne(query);
-            console.log(result)
+            // console.log(result)
             res.send(result)
         })
 
@@ -185,7 +186,7 @@ async function run() {
             const id = req.params.id;
             const query = { _id: ObjectId(id) };
             const result = await productsCollections.deleteOne(query);
-            console.log(result)
+            // console.log(result)
             res.send(result)
         })
 
